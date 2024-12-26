@@ -1,4 +1,3 @@
-#include <bits/stdc++.h>
 using namespace std;
 
 string get_opcode(string str)

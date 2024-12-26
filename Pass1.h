@@ -1,15 +1,20 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <map>
+#include <sstream>
+#include <string>
+
 using namespace std;
 
-vector < pair < string, pair < string, pair < string, string > > > > arr;
-string program_name, str, starting_address;
-map <string, string> labels;
-vector <string> object_code;
+vector < pair < std::string, pair < std::string, pair < std::string, std::string > > > > arr;
+std::string program_name, str, starting_address;
+map <std::string, std::string> labels;
+vector <std::string> object_code;
 
 void input()
 {
 	char ch;
-	string str, temp;
+	std::string str, temp;
 	int index = 0;
 	while(!cin.eof())
 	{
@@ -48,23 +53,23 @@ void input()
 	}
 }
 
-int hexToDec(string str)
+int hexToDec(std::string str)
 {
     int y;
-    stringstream stream;
+    std::stringstream stream;
     stream << str;
     stream >> hex >> y;
     return y;
 }
 
-string decToHex(int num)
+std::string decToHex(int num)
 {
-    stringstream stream;
+    std::stringstream stream;
     stream << hex << num;
     return stream.str();
 }
 
-string add(string str, string adder, int flag)
+std::string add(std::string str, std::string adder, int flag)
 {
 	//Adding hex and hex
 	if(flag)
@@ -93,8 +98,8 @@ void addressing()
 
 	for(int i = 1; i < arr.size()-1; i++)
 	{
-		string mnemonic = arr[i-1].second.second.first;
-		string lastAddress = arr[i-1].first;
+		std::string mnemonic = arr[i-1].second.second.first;
+		std::string lastAddress = arr[i-1].first;
 		if(mnemonic != "BYTE" && mnemonic != "RESW" && mnemonic != "RESB")
 		{
 			arr[i].first = add(lastAddress, "3", 0);
@@ -104,7 +109,7 @@ void addressing()
 			if(mnemonic == "BYTE")
 			{
 				int bytes;
-				string label2 = arr[i-1].second.second.second;
+				std::string label2 = arr[i-1].second.second.second;
 				char ch = label2[0];
 				if(ch == 'C')
 				{
@@ -126,13 +131,13 @@ void addressing()
 			else if(mnemonic == "RESB")
 			{
 				int reserve = atoi(arr[i-1].second.second.second.c_str());
-    			string hexaReserve = decToHex(reserve);
+    			std::string hexaReserve = decToHex(reserve);
     			arr[i].first = add(lastAddress, hexaReserve, 1);
 			}
 			else
 			{
 				int reserve = 3 * atoi(arr[i-1].second.second.second.c_str());
-				string hexaReserve = decToHex(reserve);
+				std::string hexaReserve = decToHex(reserve);
 				arr[i].first = add(lastAddress, hexaReserve, 1);
 			}
 		}
@@ -143,7 +148,7 @@ void addressing()
 
 void generate_object_code()
 {
-	string objectCode = "", mnemonic, operand, label_address;
+	std::string objectCode = "", mnemonic, operand, label_address;
 	for(int i = 0; i < arr.size() - 1; i++)
 	{
 		int flag = 0;
@@ -183,7 +188,7 @@ void generate_object_code()
 			}
 			if(objectCode.size() < 6)
 			{
-				string zero;
+				std::string zero;
 				for(int i = 0; i < 6 - objectCode.size(); i++)
 				{
 					zero += "0";
@@ -198,7 +203,7 @@ void generate_object_code()
 			objectCode += decToHex(atoi(operand.c_str()));
 			if(objectCode.size() < 6)
 			{
-				string zero;
+				std::string zero;
 				for(int i = 0; i < 6 - objectCode.size(); i++)
 				{
 					zero += "0";
@@ -229,7 +234,7 @@ void generate_object_code()
 
 		if(objectCode.size() < 6)
 		{
-			string zero;
+			std::string zero;
 			for(int i = 0; i < 6 - objectCode.size(); i++)
 			{
 				zero += "0";

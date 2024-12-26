@@ -1,4 +1,3 @@
-#include<bits/stdc++.h>
 #include "Opcode_map.h"
 #include "Pass1.h"
 #include "Pass2.h"

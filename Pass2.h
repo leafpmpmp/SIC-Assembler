@@ -1,12 +1,11 @@
-#include<bits/stdc++.h>
 using namespace std;
 
 void generate_machine_code()
 {
-	string size = decToHex(hexToDec(arr[arr.size()-2].first) - hexToDec(starting_address));
+	std::string size = decToHex(hexToDec(arr[arr.size()-2].first) - hexToDec(starting_address));
 	cout << "H " << program_name << " " << starting_address << " " << size << endl;
 	int i = 0, save = 0, eternal_flag = 0;
-	string firstExecutable;
+	std::string firstExecutable;
 	while(1)
 	{
 		int flag = 0, length = 0, codes = 0;
